@@ -1,11 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_webview/components/navigation_controls.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_webview/components/back_navigation.dart';
+import 'package:flutter_webview/components/forward_navigation.dart';
+
 import 'package:webview_flutter/webview_flutter.dart';
 
 void main() {
   runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,13 +46,24 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            fontSize: 24.0,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        leading: BackNavigation(controller.future),
         actions: <Widget>[
-          NavigationControls(controller.future),
+          ForwardNavigation(controller.future),
         ],
       ),
       body: WebView(
-        initialUrl: 'https://swift.essential-infotech.dev/',
+        initialUrl:
+            'https://cour.essential-infotech.dev/accounts/login/?next=/',
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
           controller.complete(webViewController);
