@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.grey.shade600,
       ),
-      home: MyHomePage(title: 'Flutter WebView'),
+      themeMode: ThemeMode.light,
+      home: MyHomePage(title: 'E-Pharma'),
     );
   }
 }
@@ -62,8 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: WebView(
-        initialUrl:
-            'https://cour.essential-infotech.dev/accounts/login/?next=/',
+        initialUrl: 'https://epharma.essential-infotech.net/',
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
           controller.complete(webViewController);
