@@ -20,12 +20,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter WebView',
+      title: 'Sheba Plus',
       theme: ThemeData(
         primaryColor: Colors.grey.shade600,
       ),
       themeMode: ThemeMode.light,
-      home: MyHomePage(title: 'E-Pharma'),
+      home: MyHomePage(title: 'Sheba Plus'),
     );
   }
 }
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: WebView(
-        initialUrl: 'https://epharma.essential-infotech.net/',
+        initialUrl: 'http://epharma.essential-infotech.net/',
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
           controller.complete(webViewController);

@@ -2,7 +2,7 @@
     package="com.eit.flutter_webview">
    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="flutter_webview"
+        android:label="Sheba Plus"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
