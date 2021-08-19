@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_webview/components/back_navigation.dart';
-import 'package:flutter_webview/components/forward_navigation.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Sheba Plus',
+      title: 'WebView',
       theme: ThemeData(
         primaryColor: Colors.grey.shade600,
       ),
@@ -43,31 +41,31 @@ class _MyHomePageState extends State<MyHomePage> {
   final Completer<WebViewController> controller =
       Completer<WebViewController>();
 
+  WebViewController controllerGlobal;
+  Future<bool> goBack() async {
+    if (await controllerGlobal.canGoBack()) {
+      controllerGlobal.goBack();
+      return Future.value(false);
+    } else {
+      return Future.value(true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            fontSize: 24.0,
-            color: Colors.black,
+    return WillPopScope(
+      onWillPop: goBack,
+      child: SafeArea(
+        child: Scaffold(
+          body: WebView(
+            initialUrl: 'https://tacpulse.animo-ai.co/',
+            javascriptMode: JavascriptMode.unrestricted,
+            onWebViewCreated: (WebViewController webViewController) {
+              controller.future.then((value) => controllerGlobal = value);
+              controller.complete(webViewController);
+            },
           ),
         ),
-        centerTitle: true,
-        leading: BackNavigation(controller.future),
-        actions: <Widget>[
-          ForwardNavigation(controller.future),
-        ],
-      ),
-      body: WebView(
-        initialUrl: 'http://epharma.essential-infotech.net/',
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController webViewController) {
-          controller.complete(webViewController);
-        },
       ),
     );
   }
